@@ -11,5 +11,5 @@ setup(
     license='MIT',
     packages=['voice_transcriber'],
     scripts=['bin/voice-transcriber'],
-    install_requires=["pyperclip", "requests"]
+    install_requires=["requests"]
 )
