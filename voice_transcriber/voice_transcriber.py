@@ -11,12 +11,14 @@ class VoiceTranscriber:
     def transcribe(self, name, filename):
         file_ext = os.path.splitext(filename)[1]
         data = {"name": name + file_ext}
-        request = requests.post('https://{}/recordings'.format(self.domain), headers=self.__headers(), json=data)
+        url = f'https://{self.domain}/recordings'
+        request = requests.post(url, headers=self.__headers(), json=data, timeout=10)
 
         if request.status_code == 200:
             response = request.json()
             upload_url = response['upload_url']
-            request = requests.put(upload_url, headers=self.__headers(), data=open(filename, 'rb').read())
+            with open(filename, 'rb') as datafile:
+                request = requests.put(upload_url, headers=self.__headers(), data=datafile.read(), timeout=10)
             return request.status_code == 200
 
         raise RuntimeError('An unexpected error occurred')

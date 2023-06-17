@@ -13,7 +13,7 @@ class Config:
             'domain': domain,
             'api_key': api_key
         }
-        with open(self.__config_filename(), 'w') as configfile:
+        with open(self.__config_filename(), 'w', encoding="utf-8") as configfile:
             config.write(configfile)
 
     def get_credentials(self):
